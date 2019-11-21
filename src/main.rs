@@ -13,15 +13,8 @@ mod game_of_life {
     pub const PLAYGROUND_WIDTH: u32 = 49;
     pub const PLAYGROUND_HEIGHT: u32 = 40;
 
-    #[derive(Copy, Clone)]
-    pub enum State {
-        Paused,
-        Playing,
-    }
-
     pub struct GameOfLife {
         playground: [bool; (PLAYGROUND_WIDTH * PLAYGROUND_HEIGHT) as usize],
-        state: State,
     }
 
     impl GameOfLife {
@@ -40,7 +33,6 @@ mod game_of_life {
 
             GameOfLife {
                 playground: playground,
-                state: State::Paused,
             }
         }
 
@@ -58,17 +50,6 @@ mod game_of_life {
             } else {
                 None
             }
-        }
-
-        pub fn toggle_state(&mut self) {
-            self.state = match self.state {
-                State::Paused => State::Playing,
-                State::Playing => State::Paused,
-            }
-        }
-
-        pub fn state(&self) -> State {
-            self.state
         }
 
         pub fn update(&mut self) {
@@ -187,7 +168,7 @@ pub fn main() -> Result<(), String> {
             }
         }
         // update the game loop here
-        if frame >= 5 {
+        if frame >= 0 {
             game.update();
             frame = 0;
         }
